@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css">
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            
+        }
+        .header {
+            display: flex;
+            justify-content: space-between; 
+            align-items: center; 
+            width: 100%;
+            background-color: black;
+            padding: 2px; 
+            color: white;
+            border-bottom: 1px solid white;
+        }
+        .p {
+            text-align: center; 
+            font-family: Verdana; 
+            font-size: 16px; 
+            margin: 0; 
+            padding: 0; 
+        }
+        .container {
+            display: flex;
+            justify-content: flex-end; 
+        }
+        .col{
+            display: flex;
+            justify-content: center;
+            padding-top: 10px;
+            height: 30px;
+            background-color: rgb(0, 0, 0);
+            width: 100px;
+            font-size: 15px;
+            color: white;
+            font-family: Verdana;
+            font-weight: bolder;
+        }
+        .col:hover{
+            background-color: white;
+            color: black;
+        } 
+        .top-container{
+            display: flex;
+            justify-content: center;
+            height: 100%;
+            padding: 30px;
+            margin: 5px;
+            border: 3px solid rgb(0, 0, 0);
+            border-radius: 50px;
+        }
+        .pfp{
+            overflow: hidden;
+            width: 200px;
+            height: 200px;
+            border-radius: 50% ;
+        }
+        .top-container img{
+            width: 100%;
+            height: 100%;
+        }
+        .info{
+            height: 100%;
+            padding-left: 50px;
+            font-size: 20px;
+            font-family: Verdana;
+            color: rgb(0, 0, 0);
+            
+        }
+        .usr{
+            font-size: 25px;
+            font-weight: 600;
+            padding-bottom: 20px;
+        }
+        .reach{
+            display: flex;
+            padding-top: 10px;
+            gap: 20px;
+            color: rgb(0, 0, 0);
+        }
+        .col.active{
+            background-color: white;
+            color: black;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        a:link, a:visited {
+            color: inherit;
+        }
+        .assigned, .request {
+            display: inline-block;
+            margin: 30px;
+            width: 30%;
+            height: 300px;
+            border: 2px solid rgb(0, 0, 0);
+            border-radius: 10px;
+            overflow: scroll;
+        }
+        .assigned h4, .request h4{
+            display: flex;
+            justify-content: center;
+            font-family: Verdana;
+        }
+        .rect{
+            display: flex;
+            flex-wrap: wrap;
+            border: 1px solid rgb(0, 255, 34);
+            padding: 10px;
+            border-radius: 8px;
+            border-bottom: 1px solid rgb(16, 0, 245);
+        }
+        .i{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        .iname{
+            flex: 1;
+        }
+        .button{
+            margin-left:auto ;
+            padding: 3px;
+            width: auto;
+            background-color: black;
+            border-radius: 5px;
+            border-width: 2px;
+            border-top-color: red;
+            border-left-color: red;
+            cursor: pointer;
+            color: white;
+            font-size: 15px;
+            font-family: sans-serif;
+            margin: 5px;
+        }
+        .button:hover{
+            background-color: white;
+            color: black;
+        }
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index:1; 
+            padding-top: 50px; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%;
+            overflow: auto; 
+            background-color: rgba(52, 5, 88, 0.347);
+        }
+        .modal-header,
+        .modal-footer{
+            text-align: center;
+            background-color: #000000;
+            color: white;
+            margin: auto;
+            border: 1px solid #ff0000;
+            width: 50%;
+            padding:5px;
+            font-size: 20px;
+            font-weight: bold;
+            font-family: Cambria;
+        }
+        .modal-header{
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+        .modal-content{
+            display: block;
+            background-color: white;
+            margin: auto;
+            border: 2px solid rgb(255, 0, 0);
+            width: 50%;
+            padding:5px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+        .close {
+            color: #ffffff;
+            float: right;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: #ff0000;
+            cursor: pointer;
+        }
+        .col .bi{
+            display: flex;
+        }
+        .bi{
+            font-size: 25px;
+            transition: transform 0.4s;
+        }
+        .bi:hover{
+            transform: rotate(1080deg);
+        }
+        .follow, .unfollow{
+            padding: 10px;
+            padding-left: 20px;
+            padding-right: 20px;
+            border: 2px solid black;
+            background-color: rgba(30, 30, 165, 0.369);
+            border-radius: 20px;
+            font-size: 15px;
+            font-family: cursive;
+            margin: 5px;
+            margin-left: 30px;
+            transition: 0.2s;
+        }
+        .follow:hover , .unfollow:hover{
+            cursor: pointer;
+            background-color: white;
+        }
+        .bi{
+            padding-left: 30px;
+        }
+        .bi:hover{
+            cursor: pointer;
+        }
+        form button{
+            background-color: black;
+            color: white;
+            padding-right: 30px;
+            border: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">  
+        {% if influ.id==user.id  %}
+            <p>Welcome</p>
+        {% else %}
+            <form method="POST">
+                <p class="p"><button type="submit" name="flag" value="flag"> <i class="bi bi-flag"></i></button></p>
+            </form>
+        {% endif %}
+        <div class="container">
+            <div class="col">
+                <a href="">Profile</a>
+            </div>
+            <div class="col">
+                <a href="{{url_for('findInflu')}}">Find</a>
+            </div>
+            <div class="col">
+                Stats
+            </div>
+            <div class="col">
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+            <div class="col">
+                <a href=""><i class="bi bi-gear gear-icon"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="top-container">
+        <div class="pfp">
+            <img src="/static/pfp.jpg" width="100px" height="100px"> 
+        </div>
+        <div class="info">
+            <div class="usr">
+                {{influ.username}}
+            </div>
+            <div class="name">
+                {{influ.fullname}}
+            </div>
+            <div class="reach">
+                <div id="followers">
+                    Followers: {{influ.followers}}
+                </div>
+                <div id="following">Followings: {{influ.following}} </div>
+            </div>
+            <form method="POST">
+                <button type="submit" class="follow" name="follow" value="follow">Follow</button>
+                <button type="submit" class="unfollow" name="unfollow" value="unfollow">Unfollow</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

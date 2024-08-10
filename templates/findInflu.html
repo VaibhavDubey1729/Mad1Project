@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css">
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            
+        }
+        .header {
+            display: flex;
+            justify-content: space-between; 
+            align-items: center; 
+            width: 100%;
+            background-color: black;
+            padding: 2px; 
+            color: white;
+            border-bottom: 1px solid white;
+        }
+        .p {
+            text-align: center; 
+            font-family: Verdana; 
+            font-size: 16px; 
+            margin: 0; 
+            padding: 0; 
+        }
+        .container {
+            display: flex;
+            justify-content: flex-end; 
+        }
+        .col{
+            display: flex;
+            justify-content: center;
+            padding-top: 10px;
+            height: 30px;
+            background-color: rgb(0, 0, 0);
+            width: 100px;
+            font-size: 15px;
+            color: white;
+            font-family: Verdana;
+            font-weight: bolder;
+        }
+        .col:hover{
+            background-color: white;
+            color: black;
+        }
+        .col.active{
+            background-color: white;
+            color: black;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        a:link, a:visited {
+            color: inherit;
+        }
+        .col .bi{
+            display: flex;
+        }
+        .bi{
+            font-size: 25px;
+            transition: transform 0.4s;
+        }
+        .col .bi:hover{
+            transform: rotate(1080deg);
+        }
+        .search{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+            margin: -1px;
+            padding: 30px;
+            padding-right: 100px;
+            border: 2px solid black;
+            
+        }
+        .search input{
+            font-size: 20px;
+            font-family: Verdana;
+            width: 350px;
+            height: 30px;
+            border: 3px solid;
+            border-width: 4px;
+            border-radius: 20px;
+            padding: 10px;
+            border-color: #ff0000;
+            background-color: black;
+            color: white;
+            transition: 0.5s ;
+            
+        }
+        .search input:hover{
+            border-color: rgb(100, 67, 235);
+            width: 500px;
+        }
+        .search button{
+            margin-left: 20px;
+            font-size: 20px;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background-color: black;
+            color: rgb(99, 52, 255);
+            border: 3px solid rgb(255, 0, 0);
+            transition: transform 0.8s;
+        }
+        .search button:hover{
+            cursor: pointer;
+            transform: scale(1.2) rotate(1080deg);
+        }
+        .rect{
+            justify-content: center;
+            align-items: center;
+            margin: 20px auto;
+            width: 55%;
+            border: 2px solid rgb(2, 255, 10);
+            padding: 5px;
+            border-radius: 20px;
+            border-bottom: 2px solid rgb(8, 0, 255);
+            border-right: 2px solid rgb(8, 0, 255);
+            overflow: hidden;
+            transition: transform 0.5s;
+            position: relative;
+        }
+        .i{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        .iname{
+            flex: 1;
+            font-size: 18px;
+            padding: 10px;
+            font-family: Georgia;
+        }
+        .iname b{
+            font-size: 20px;
+            font-family: Segoe UI;
+        }
+        .button{
+            margin-left:0 ;
+            padding: 10px;
+            width: auto;
+            background-color: black;
+            border-radius: 15px;
+            border-width: 3px;
+            border-top-color: red;
+            border-left-color: red;
+            cursor: pointer;
+            color: white;
+            font-size: 20px;
+            font-family: sans-serif;
+            margin: 10px;
+        }
+        .button:hover{
+            background-color: white;
+            color: black;
+        }
+        .buttons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index:10; 
+            padding-top: 150px; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%;
+            overflow: auto; 
+            background-color: rgba(52, 5, 88, 0.347);
+        }
+        .modal-header{
+            text-align: center;
+            background-color: #000000;
+            color: white;
+            margin: auto;
+            border: 1px solid #ff0000;
+            width: 40%;
+            padding:5px;
+            font-size: 20px;
+            font-weight: bold;
+            font-family: Cambria;
+        }
+        .modal-header{
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+        .modal-content{
+            display: block;
+            background-color: white;
+            margin: auto;
+            border: 2px solid rgb(255, 0, 0);
+            width: 40%;
+            padding:5px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+        .close {
+            color: #ffffff;
+            float: right;
+            font-size: 30px;
+            padding: 20px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: #ff0000;
+            cursor: pointer;
+        }
+        .flash{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: red;
+            margin: 10px auto;
+            width: 30% ;
+            font-size: 20px;
+            font-family: Arial;
+            font-weight: bold;
+            border: 2px solid black;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">  
+        <p class="p">Welcome {{fullname}} </p>
+        <div class="container">
+            <div class="col">
+                <a href="{{url_for('dashboard',username=username)}}">Profile</a>
+            </div>
+            <div class="col">
+                <a href="{{url_for('findInflu')}}">Find</a>
+            </div>
+            <div class="col">
+                Stats
+            </div>
+            <div class="col">
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+            <div class="col">
+                <a href="{{url_for('settingInflu',username=username)}}"><i class="bi bi-gear gear-icon"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="search" >
+        <form method="GET" action="{{url_for('search')}}">
+            <input type="text" name="search" placeholder="search">
+            <button type="submit"><i class="fas fa-search"></i></button>
+        </form>
+    </div>
+        {% for msg in get_flashed_messages() %}
+            {% if msg %}
+            <div class="flash">
+                {{msg}}
+            </div>
+            {% endif %}
+        {% endfor %}
+    {% for ad in products %}
+        {% set status = Status.get(ad.id, ' ') %}
+        {% if ad.visibility=='Public' or status=='Pending' %}
+            <form method="POST" action="/findInflu">
+                <div class="rect">
+                   <div class="i">
+                        <div class="iname"><b>Product</b> <i>{{ad.name}}</i> |<b> Budget </b><i>{{ad.price}} Rs</i> | <b>Sponsor</b> <i>{{ad.Sponsor.fullname}} | <b>Starts</b> <i> {{ad.start}} </i></div>
+                        <div class="buttons">
+                            {% set status = Status.get(ad.id, ' ') %}
+                                {% if status == 'Pending' %}
+
+                                        <button type="button" data-modal="modal-{{ ad.id }}" class="button view">View</button>
+                                        <input type="hidden" name="adID" value="{{ ad.id }}">
+                                        <button type="submit" name="status" value="Accepted" class="button accept">Accept</button>
+                                        <button type="submit" name="status" value="Rejected" class="button reject">Reject</button>
+                                        <button type="submit" name="Flag" value="FlagAD" class="button flag"><i class="bi bi-flag"></i></button>
+                                    </form>
+
+                                {% elif status=='Requested' %}
+                                    <button type="button" data-modal="modal-{{ ad.id }}" class="button view">View</button>
+                                    <button type="submit" name="request" class="button request" value="Request">Requested</button>
+                                    <button type="submit" name="Flag" value="FlagAD" class="button flag"><i class="bi bi-flag"></i></button>
+                                {% elif status==' ' %}
+                                    <form method="POST" action="/findInflu" class="inline-form">
+                                        <input type="hidden" name="adID" value="{{ ad.id }}">
+                                        <button type="button" data-modal="modal-{{ ad.id }}" class="button view">View</button>
+                                        <button type="submit" name="request" class="button request" value="Request">Request</button>
+                                        <button type="submit" name="Flag" value="FlagAD" class="button flag"><i class="bi bi-flag"></i></button>
+                                    
+                                {% else %}
+                                    <input type="hidden" name="adID" value="{{ ad.id }}">
+                                    <button type="button" data-modal="modal-{{ ad.id }}" class="button view">View</button>
+                                    <button type="submit" name="Flag" value="FlagAD" class="button flag"><i class="bi bi-flag"></i></button>
+
+                            {% endif %}
+                        </div>
+                        <!--Modal Class-->
+                        <div id="modal-{{ ad.id }}" class="modal">
+                            <div class="modal-header">
+                                <span class="close" onclick="close('{{ ad.id }}')">&times;</span>
+                                <p> {{ad.name}} </p>
+                            </div>
+                            <div class="modal-content">
+                                <div class="txt">
+                                    <p><h2>Product:<i> {{ad.name}} </i></h2></p>
+                                    <p><h3>Budget: <i>{{ad.price}} </i></p>
+                                    <p><h3>Sponsor: <i>{{ad.Sponsor.fullname}} </i></p>
+                                    <p>Description: <i>{{ad.description}} </i></p>
+                                    <p>Starting Date: <i>{{ad.start}} </i></p>
+                                    <p>Ending Date: <i>{{ad.end}} </i></h3></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        {% endif %}
+    {% endfor %}
+
+    {% for influencer in influencers %}
+        {% if influencer.visibility=='Public' %}
+            <div class="rect">
+                <div class="i">
+                    <div class="iname"><b>Influencer</b> <i>{{influencer.fullname}}</i> |<b> Username </b><i>{{influencer.username}}</i> </div>
+                    <div class="buttons">
+                        <a href="{{url_for('influencer', username=username,influencer=influencer.username)}}"><button type="button" class="button view">Profile</button></a>
+                        <form method="POST" action="/findInflu">
+                            <input type="hidden" name="influID" value="{{ influencer.id }}">
+                            <button type="submit" name="Flag" value="FlagInflu" class="button flag"><i class="bi bi-flag"></i></button>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var buttons = document.querySelectorAll(".view");
+            var modals = document.querySelectorAll(".modal");
+            
+            buttons.forEach(function(button) {
+                button.onclick = function() {
+                    var modalId = button.getAttribute("data-modal");
+                    var modal = document.getElementById(modalId);
+                    modal.style.display = "block";
+                }
+            });
+            
+            var closeButtons = document.querySelectorAll(".close");
+            closeButtons.forEach(function(closeButton) {
+                closeButton.onclick = function() {
+                    var modal = closeButton.closest(".modal");
+                    modal.style.display = "none";
+                }
+            });
+            
+            window.onclick = function(event) {
+                if (event.target.classList.contains("modal")) {
+                    event.target.style.display = "none";
+                }
+            }
+        });
+        
+    </script>
+</body>
+</html>

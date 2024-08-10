@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css">
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgb(255, 255, 255);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between; 
+            align-items: center; 
+            width: 100%;
+            background-color: black;
+            padding: 2px; 
+            color: white;
+            border-bottom: 1px solid white;
+        }
+        .p {
+            text-align: center; 
+            font-family: Verdana; 
+            font-size: 16px; 
+            margin: 0; 
+            padding: 0; 
+        }
+        .container {
+            display: flex;
+            justify-content: flex-end; 
+        }
+        .col{
+            display: flex;
+            justify-content: center;
+            padding-top: 10px;
+            height: 30px;
+            background-color: rgb(0, 0, 0);
+            width: 100px;
+            font-size: 15px;
+            color: white;
+            font-family: Verdana;
+            font-weight: bolder;
+        }
+        .col:hover{
+            background-color: white;
+            color: black;
+        } 
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        a:link, a:visited {
+            color: inherit;
+        }
+        .col .bi{
+            display: flex;
+        }
+        .col .bi{
+            font-size: 25px;
+            transition: transform 0.4s;
+        }
+        .col .bi:hover{
+            transform: rotate(1080deg);
+        }
+        .box{
+            display: flex;
+            padding: 1px;
+            gap: 10px;
+            margin: 2px;
+        }
+        
+        .side-box{
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            border: 5px solid rgb(0, 0, 0);
+            border-radius: 10px;
+            padding: 30px;
+            flex-wrap: wrap;
+            height: 400px;
+            width: 200px;
+            box-shadow: 5px 4px 5px rgb(55, 35, 74);
+            flex-shrink: 0;
+        }
+        .head{
+            display: flex;
+            align-items: center;
+            font-size: 50px;
+            font-family: monospace;
+        }
+        .head .bi{
+            color: rgb(149, 31, 196);
+        }
+        .line{
+            margin-top: 15px;
+            margin-bottom: 10px;
+            height: 2px;
+            width: 100%;
+            background-color: rgb(0, 0, 0);
+        }
+        .column{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 3px;
+            height: 30px;
+            width: 100%;
+            border: 3px solid rgb(188, 2, 113);
+            border-radius: 10px;
+            font-family: cursive;
+            gap: 5px;
+            box-shadow: 4px 4px 6px rgb(117, 2, 71);
+            
+            transition: transform 0.3s;
+        }
+        .column:hover{
+            cursor: pointer;
+            z-index: 10;
+            transform: scale(1.1);
+        }
+        .plots{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            padding: 20px;
+
+            
+        }
+        .ads {
+            display: flex;
+            padding: 5px;
+            
+        }
+        .plot{
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">  
+        <p class="p">Welcome {{fullname}} </p>
+        <div class="container">
+            <div class="col">
+                <a href="{{url_for('dashboard', username=username)}}">Profile</a>
+            </div>
+            <div class="col">
+                <a href="{{url_for('findInflu')}}">Find</a>
+            </div>
+            <div class="col">
+                Stats
+            </div>
+            <div class="col">
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+            <div class="col">
+                <a href="{{url_for('settingInflu',username=username)}}"><i class="bi bi-gear gear-icon"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="side-box">
+            <div class="head">
+                <i class="bi bi-person-circle"></i>
+                <span class="text-a">Admin</span>
+            </div>
+            <div class="line"></div>
+            
+            <div class="column">
+                <i class="bi bi-grid-1x2-fill"></i>
+                <a href="{{url_for('admin')}}"> Dashboard</a>
+            </div>
+            <div class="column">
+                <i class="bi bi-person-bounding-box"></i>
+                <a href="{{url_for('adminInflu')}}"> Influencers</a>
+            </div>
+            <div class="column">
+                <i class="bi bi-person-lines-fill"></i>
+                <a href="{{url_for('adminSpo')}}">Sponsors</a>
+            </div>
+            <div class="column">
+                <i class="bi bi-cart3"></i>
+                <a href="{{url_for('adminCamp')}}">Campaigns</a>
+            </div>
+            <div class="column">
+                <i class="bi bi-bar-chart-line"></i>
+                <a href="{{url_for('adminStat')}}">Statistics</a>
+            </div>
+            <div class="column">
+                <i class="bi bi-flag-fill"></i>
+                <a href="{{url_for('adminReport')}}">Reports</a>
+            </div>
+            <div class="column">
+                <i class="bi bi-box-arrow-right"></i>
+                <a href="{{url_for('logout')}}">Logout</a>
+            </div>
+        </div>
+        
+        <div class="plots">
+            <div class="ads">
+                <img src="/static/Stats.png" class="plot" alt="Ad Status Distribution">
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>

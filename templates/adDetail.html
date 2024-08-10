@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgb(255, 255, 255);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between; 
+            align-items: center; 
+            width: 100%;
+            background-color: black;
+            padding: 2px; 
+            color: white;
+            border-bottom: 1px solid white;
+        }
+        .p {
+            text-align: center; 
+            font-family: Verdana; 
+            font-size: 16px; 
+            margin: 0; 
+            padding: 0; 
+        }
+        .container {
+            display: flex;
+            justify-content: flex-end; 
+        }
+        .col {
+            display: flex;
+            justify-content: center;
+            padding-top: 10px;
+            height: 30px;
+            background-color: rgb(0, 0, 0);
+            width: 100px;
+            font-size: 15px;
+            color: white;
+            font-family: Verdana;
+            font-weight: bolder;
+        }
+        .col:hover {
+            background-color: white;
+            color: black;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        a:link, a:visited {
+            color: inherit;
+        }
+        a:hover, a:active {
+            color: inherit;
+        }
+        .container1 {
+            display: flex;
+            align-items: flex-start;
+        }
+        .assigned {
+            display: block;
+            margin: 30px;
+            width: auto;
+            height: 300px;
+            border: 2px solid rgb(0, 0, 0);
+            border-radius: 10px;
+            overflow: scroll;
+        }
+        .assigned h4{
+            display: flex;
+            justify-content: center;
+            font-family: Verdana;
+        }
+        .rect{
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            flex-direction: row;
+            border: 1px solid rgb(0, 255, 34);
+            padding: 10px;
+            border-radius: 8px;
+            border-bottom: 1px solid rgb(16, 0, 245);
+            margin: 10px ;
+            gap: 15px ;
+            font-size: 20px;
+        }
+        .rect button{
+            width: 90px;
+            height: 30px;
+            border-radius: 20px;
+            font-size: 20px;
+            border: 2px solid black;
+            background-color: red;
+            margin: 0px;
+            padding: 0px;
+            transition: 0.3s;
+        }
+        .rect button:hover{
+            transform: scaleX(1.1);
+            border-color: red;
+        }
+        .Delete{
+            margin-left: 5%;
+            width: auto;
+            height: 50px;
+            background-color: red;
+            border: 2px solid black;
+            font-size: 20px;
+            transition: transform 0.5s;
+        }
+        .Delete:hover{
+            transform: scale(1.1);
+            border-color: red;
+        }
+        .card{
+            display: block;
+            align-content: center;
+            margin: 30px;
+            height:auto;
+            width: 25%;
+            text-align: justify;
+            background-color: rgba(132, 134, 225, 0.189);
+            border-radius: 50px;
+            border-color: black;
+            border-style:solid ;
+            border-width: 5px; 
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        .name{
+            font-size: 25px;
+            font-weight: light;
+            font-family: Verdana;
+        }
+        .price,.start,.description,.end{
+            font-size: 20px;
+            font-weight: lighter;
+            font-family: sans-serif;
+            font-style: italic;
+        }
+        
+        .box{
+            display: fixed;
+            padding-left: 50%;
+            justify-content: center;
+            align-items: center;
+            top: 60%;
+            font-family: Segoe UI;
+            font-weight: bold;
+            font-size: 25px;
+        }
+        .btn{
+            background-color: rgb(255, 255, 255);
+            color: rgb(0, 0, 0);
+            font-size: 60px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border-width: 3px ;
+        }
+        .box button:hover{
+            background-color: black;
+            color: white;
+        }
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index:1; 
+            padding-top: 50px; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%;
+            overflow: auto; 
+            background-color: rgba(52, 5, 88, 0.347);
+        }
+        .modal-header,
+        .modal-footer{
+            text-align: center;
+            background-color: #000000;
+            color: white;
+            margin: auto;
+            border: 1px solid #ff0000;
+            width: 50%;
+            padding:5px;
+            font-size: 20px;
+            font-weight: bold;
+            font-family: Cambria;
+        }
+        .modal-header{
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+        .modal-footer{
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+        .modal-content{
+            background-color: white;
+            margin: auto;
+            border: 2px solid rgb(255, 0, 0);
+            width: 50%;
+            padding:5px;
+        }
+        .close {
+            color: #ffffff;
+            float: right;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: #ff0000;
+            cursor: pointer;
+        }
+        .list{
+            font-size: 20px;
+            font-weight: bold;
+        }
+        select{
+            font-size: 15px;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 5px;
+            margin-bottom: 5px;
+        }
+        form button{
+            width: 40%;
+            padding: 5px;
+            font-family:monospace;
+            border-radius: 30px;
+            background-color: black;
+            color: white;
+            font-size: 15px;
+            margin-top: 5px;
+            border-width: 2px;
+            border-color: red;
+        }
+        form button:hover{
+            background-color: white;
+            border-color: white;
+            color: rgb(255, 0, 0);
+        }
+        .Edit{
+            background-color: red;
+            color: white;
+            padding: 10px;
+            width: 50px;
+            margin-top: 20px;
+            margin-left: 100px;
+            border-radius: 20px;
+            font-size: 20px;
+            font-family: Verdana;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">  
+        <p class="p">Dashboard</p>
+        <div class="container">
+            <div class="col">
+                <a href="{{url_for('sponsor',username=username)}}">Profile</a>
+            </div>
+            <div class="col">
+                <a href="{{url_for('campaigns')}}">Campaigns</a>
+            </div>
+            <div class="col">
+                <a href="{{url_for('findspo')}}">Find</a>
+            </div>
+            <div class="col">
+                Stats
+            </div>
+            <div class="col">
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </div>
+    </div>
+    <div class="container1">
+        <div class="card">
+            <p class="name"><b>Product:</b> {{ad.name}} </p>
+            <p class="description"><b>Description:</b> {{ad.description}} </p>
+            <p class="price"><b>Budget:</b> {{ad.price}} </p>
+            <p class="start"><b>Starts:</b> {{ad.start}} </p>
+            <p class="end"><b>Ends:</b> {{ad.start}} </p>
+            <p class="end"><b>Number of Ads:</b> {{ad.Ads}} </p>
+            <p class="end"><b>Ad Visibility</b> {{ad.visibility}} </p>
+
+        </div>
+        <div class="assigned">
+            <h4>Assigned Influencers</h4>
+            <div class="rectbox">
+                <div class="rect">
+                    <div class="iname"><b>Name</b></div>
+                    <div class="ifollow"><b>Username</b></div>
+                    <div class="ifollow"><b>Status</b></div>
+                    <div class="ifollow"><b>Progress</b></div>
+                    <div class="ifollow"><b>Action</b></div>
+                </div>
+                {% for i in influ %}
+                    <div class="rect">
+                        <div class="iname-a"><div class="iname">{{i.fullname}}</div></div>
+                        <div class="ifollow-a"><div class="ifollow">{{i.username}}</div></div>
+                        <div class="ifollow-a"><div class="ifollow">{{status[i.id]}}</div></div>
+                        <div class="ifollow-a"><div class="ifollow">{{progress[i.id]}}%</div></div>
+                        <form method="POST">
+                            <input type="hidden" name="influID" value="{{ i.id }}">
+                            <button type="submit" name="influAD" value="Delete" class="button delete">Delete</button>
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <form method="POST">
+        <input type="hidden" name="adID" value="{{ ad.id }}">
+        <button type="submit" name="deleteAD" value="Delete" class="button Delete">Delete current Campaign</button>
+    </form>
+    <form method="POST">
+        <button type="button" class="button Delete"> <a href="{{url_for('editAd',adID=ad.id)}}"> Edit Campaign</a></button>
+    </form>
+    <div class="box">
+        <p>Create ad request</p>
+        <button id="btn" class="btn">
+            <i class="bi bi-plus"></i>
+        </button>
+    </div>
+    <div id="modal" class="modal">
+        <form method="POST">
+            <div class="modal-header">
+                <span class="close" onclick="close()">&times;</span>
+                <p>Find Influencers</p>
+            </div>
+            <div class="modal-content">
+                <div class="txt">
+                    <p class="name"><b>Product:</b> {{ad.name}} </p>
+                    <p class="description"><b>Description:</b> {{ad.description}} </p>
+                    <p class="price"><b>Budget:</b> {{ad.price}} </p>
+                    <p class="start"><b>Starts:</b> {{ad.start}} </p>
+                    <p class="end"><b>Ends:</b> {{ad.start}} </p>
+                    <p class="end"><b>Number of Ads:</b> {{ad.Ads}} </p>
+                    <p class="end"><b>Ad Visibility</b> {{ad.visibility}} </p>  
+
+                </div>
+                <div class="list">
+                    <label for="influencer">Choose an Influencer: </label>
+                    <select name="influencerID">
+                        <option value="" dis selected>Select Influencer</option>
+                        {% for user in users %}
+                            <option name="name" value="{{ user.id }}">{{user.fullname}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="cancel" onclick="close()">Cancel</button>
+                <button type="submit">Add</button>
+            </div>
+        </form>
+    </div>
+
+
+<script>
+    var modal = document.getElementById("modal");
+    var button = document.getElementById("btn");
+    var close = document.getElementsByClassName("close")[0];
+    var cancel = document.getElementsByClassName("cancel")[0];
+
+    button.onclick = function() {
+      modal.style.display = "block";
+    }
+    close.onclick = function() {
+      modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+    cancel.onclick = function() {
+        modal.style.display = "none";
+      }
+</script>
+</body>
+</html>

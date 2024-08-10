@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css">
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgb(127, 6, 239);
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        a:link, a:visited {
+            color: inherit;
+        }
+        a:hover, a:active {
+            color: inherit;
+        }
+        .box{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 100px;
+        }
+        .edit{
+            display: flex;
+            height: auto;
+            width: 500px;
+            border: 3px solid black;
+            border-radius: 20px;
+            padding: 30px;
+            background-color: rgb(255, 255, 255);
+        }
+        .c{
+            display: grid;
+        }
+        label{
+            margin-top: 10px;
+            font-size: 20px;
+            font-family: monospace;
+            font-weight: bold;
+            border: 1px solid rgb(77, 17, 206);
+            width: 100px;
+            border-style: solid solid none solid; 
+            border-radius: 10px;
+            padding: 5px;
+            padding-left: 20px; 
+            padding-right: 50px; 
+            
+        }
+        input{
+            font-size: 20px;
+            width: 500px;
+            font-family: cursive;
+            font-style: italic;
+            border: 2px solid rgb(99, 14, 152);
+            border-radius: 10px;
+            padding-left: 20px;
+            padding: 5px;
+
+        }
+        button{
+            padding: 5px;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin: 20px auto;
+            border: 3px solid red;
+            border-radius: 20px;
+            background-color: black;
+            color: white;
+            font-size: 25px;
+            transition: 0.4s ease-in-out;
+        }
+        button:hover{
+            
+            background-color: white;
+            color: red;
+            border-color: red;
+        }
+        select{
+            font-size: 15px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 2px solid black;
+            border-radius: 5px;
+            padding: 5px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="edit">
+            <form method="POST">
+                <div class="c">
+                    <label for="name" >Name:</label>
+                    <input type="text" name="name" value="{{ad.name}}">
+                    <label for="Price" >Budget:</label>
+                    <input type="text" name="price" value="{{ad.price}}">
+                    <label for="desc" >Description:</label>
+                    <input type="text" name="description" value="{{ad.description}}">    
+                    <label for="date" >Start Date:</label>
+                    <input type="date" name="start" value="{{ad.start}}">    
+                    <label for="date" >End Date:</label>
+                    <input type="date" name="end" value="{{ad.end}}">    
+                    <label for="Ads" >Number of Ads:</label>
+                    <input type="text" name="Ads" value="{{ad.Ads}}">    
+                    <label for="visibility">Visibility:</label>
+                    <select name="visibility">
+                        <option value="Public" {% if ad.visibility == 'Public' %}selected{% endif %}>Public</option>
+                        <option value="Private" {% if ad.visibility == 'Private' %}selected{% endif %}>Private</option>
+                    </select>
+                </div>
+                <div class="buttons">
+                    <button type="button"><a href="{{url_for('adDetail',adID=ad.id)}}" >Cancel</a></button>
+                    <button type="submit" value="submit">Update</button>
+                </div> 
+
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css">
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgb(255, 255, 255);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between; 
+            align-items: center; 
+            width: 100%;
+            background-color: black;
+            padding: 2px; 
+            color: white;
+            border-bottom: 1px solid white;
+        }
+        .p {
+            text-align: center; 
+            font-family: Verdana; 
+            font-size: 16px; 
+            margin: 0; 
+            padding: 0; 
+        }
+        .container {
+            display: flex;
+            justify-content: flex-end; 
+        }
+        .col{
+            display: flex;
+            justify-content: center;
+            padding-top: 10px;
+            height: 30px;
+            background-color: rgb(0, 0, 0);
+            width: 100px;
+            font-size: 15px;
+            color: white;
+            font-family: Verdana;
+            font-weight: bolder;
+        }
+        .col:hover{
+            background-color: white;
+            color: black;
+        } 
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        a:link, a:visited {
+            color: inherit;
+        }
+        .col .bi{
+            display: flex;
+        }
+        .col .bi{
+            font-size: 25px;
+            transition: transform 0.4s;
+        }
+        .col .bi:hover{
+            transform: rotate(1080deg);
+        }
+        .box{
+            display: flex;
+            padding: 1px;
+            gap: 10px;
+            margin: 2px;
+        }
+        
+        .main-box{
+            display: flex;
+            height: auto;
+            width: 100%;
+            padding-top: 50px;
+            padding-left: 50px;
+            background-color: rgb(255, 255, 255);
+            flex-wrap: wrap;
+        }
+        .card{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+            flex: 1 0 300px;
+            max-width: 300px;
+            padding: 20px;
+            height: 250px;
+            background-color: blueviolet;
+            border:5px solid black;
+            border-radius: 20px;
+            box-shadow: 5px 4px 5px rgb(55, 35, 74);
+            transition: transform 0.2s;
+            
+        }
+        .card:hover{
+            z-index: 10;
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+        .card .bi{
+            font-size: 35px;
+            height: 200px;
+            width: 200px;
+            border: 3px solid rgb(0, 0, 0);
+            border-radius: 50%;
+            padding: 10px;
+            background-color: black;
+            color: white;
+            
+        }
+        .icon{
+            padding: 20px;
+        }
+        .text{
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        .text-a{
+            font-size: 35px;
+            padding-left: 10px;
+            font-family: cursive;
+        }
+        .text-b{
+            font-size: 20px;
+            padding-left: 80px;
+            font-family: monospace;
+        }
+        .side-box{
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            border: 5px solid rgb(0, 0, 0);
+            border-radius: 10px;
+            padding: 30px;
+            flex-wrap: wrap;
+            height: 400px;
+            width: 200px;
+            box-shadow: 5px 4px 5px rgb(55, 35, 74);
+            flex-shrink: 0;
+        }
+        .head{
+            display: flex;
+            align-items: center;
+            font-size: 50px;
+            font-family: monospace;
+        }
+        .head .bi{
+            color: rgb(149, 31, 196);
+        }
+        .line{
+            margin-top: 15px;
+            margin-bottom: 10px;
+            height: 2px;
+            width: 100%;
+            background-color: rgb(0, 0, 0);
+        }
+        .column{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 3px;
+            height: 30px;
+            width: 100%;
+            border: 3px solid rgb(188, 2, 113);
+            border-radius: 10px;
+            font-family: cursive;
+            gap: 5px;
+            box-shadow: 4px 4px 6px rgb(117, 2, 71);
+            
+            transition: transform 0.3s;
+        }
+        .column:hover{
+            cursor: pointer;
+            z-index: 10;
+            transform: scale(1.1);
+        }
+        .main-box{
+            display: flex;
+            flex-direction: column;
+            height: auto;
+            width: 100%;
+            border: 5px solid black;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 3px 4px 5px black;
+        }
+        .title,.title1{
+            font-size: 40px;
+            font-weight: bold;
+            font-family: Verdana;
+            color: blueviolet;
+        }
+        .title1{
+            font-size: 25px;
+            padding-top: 10px;
+        }
+        .line1{
+            margin-top: 10px;
+            height: 3px;
+            width: 100%;
+            background-color: rgb(0, 0, 0);
+            margin-bottom: 20px;
+        }
+        .rect, .rect1, .recta, .recta1, .rectb,.rectb1{
+            display: grid;
+            padding: 10px;
+            grid-template-columns: repeat(8,1fr);
+            box-sizing: border-box;
+            width: 100%;
+            border: 3px solid black;
+            box-shadow: 3px 3px 5px rgb(43, 12, 79);
+            border-radius: 10px;
+            gap: 10px;
+            font-family: segoe UI;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .recta, .recta1{
+            grid-template-columns: repeat(8,1fr);
+        }
+
+        .rectb, .rectb1{
+            grid-template-columns: repeat(11,1fr);
+        }
+        .rect1{
+            margin-top: 10px;
+            font-family: cursive;
+            font-size: 18px;
+            font-style: italic;
+            font-weight: 400;
+        }
+        .flag{
+            padding: 5px;
+            background-color: blueviolet;
+            font-size: 15px;
+            font-family: cursive;
+            border: 2px solid black;
+            border-radius: 10px;
+            box-shadow: 2px 2px 4px rgb(98, 5, 179);
+            transition: transform 0.2s;
+        }
+        .flag:hover{
+            background-color: white;
+            border-color: blueviolet;
+            color: blueviolet;
+            cursor: pointer;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">  
+        <p class="p">Welcome {{fullname}} </p>
+        <div class="container">
+            <div class="col">
+                <a href="{{url_for('dashboard', username=username)}}">Profile</a>
+            </div>
+            <div class="col">
+                <a href="{{url_for('findInflu')}}">Find</a>
+            </div>
+            <div class="col">
+                Stats
+            </div>
+            <div class="col">
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+            <div class="col">
+                <a href="{{url_for('settingInflu',username=username)}}"><i class="bi bi-gear gear-icon"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="side-box">
+            <div class="head">
+                <i class="bi bi-person-circle"></i>
+                <span class="text-a">Admin</span>
+            </div>
+            <div class="line"></div>
+            
+            <div class="column">
+                <i class="bi bi-grid-1x2-fill"></i>
+                <a href="{{url_for('admin')}}"> Dashboard</a>
+            </div>
+            <div class="column">
+                <i class="bi bi-person-bounding-box"></i>
+                <a href="{{url_for('adminInflu')}}"> Influencers</a>
+            </div>
+            <div class="column">
+                <i class="bi bi-person-lines-fill"></i>
+                <a href="{{url_for('adminSpo')}}">Sponsors</a>
+            </div>
+            <div class="column">
+                <i class="bi bi-cart3"></i>
+                <a href="{{url_for('adminCamp')}}">Campaigns</a>
+            </div>
+            <div class="column">
+                <i class="bi bi-bar-chart-line"></i>
+                <a href="{{url_for('adminStat')}}">Statistics</a>
+            </div>
+            <div class="column">
+                <i class="bi bi-flag-fill"></i>
+                <a href="{{url_for('adminReport')}}">Reports</a>
+            </div>
+            <div class="column">
+                <i class="bi bi-box-arrow-right"></i>
+                <a href="{{url_for('logout')}}">Logout</a>
+            </div>
+        </div>
+        <div class="main-box">
+            <span class="title">Reports</span>
+            <div class="line1"></div>
+            <span class="title1">Influencers</span>
+            <div class="line1"></div>
+            <div class="rect">
+                <div class="i">Name</div>
+                <div class="i">Username</div>
+                <div class="i">Followers</div>
+                <div class="i">Category</div>
+                <div class="i">Active Ads</div>
+                <div class="i">Visibility</div>
+                <div class="i">Total Flags</div>
+                <div class="i">Actions</div>
+            </div>
+            <div class="rect1">
+                {% for user in users %}
+                    <div class="i">{{user.fullname}} </div>
+                    <div class="i">{{user.username}}</div>
+                    <div class="i">{{user.followers}}</div>
+                    <div class="i">{{user.category}}</div>
+                    <div class="i">{{ads[user.id]}}</div>
+                    <div class="i">{{user.visibility}}</div>
+                    <div class="i">{{user.flagCount}}</div>
+                    <div class="i">
+                        <form method="POST">
+                            <input type="hidden" name="userID" value="{{user.id}}">
+                            {% if user.id!=1 %}
+                                {% if user.flag==True %}
+                                    <button type="submit" class="flag" name="unflag" value="unflag">Unflag</button>
+                                {% elif user.flag==False %}
+                                    <button type="submit" class="flag" name="flag" value="flag">Flag</button>
+                                {% endif %}
+                            {% endif %}
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+            <span class="title1">Sponsors</span>
+            <div class="line1"></div>
+            <div class="recta">
+                <div class="i">Name</div>
+                <div class="i">Username</div>
+                <div class="i">Category</div>
+                <div class="i">Campaigns</div>
+                <div class="i">Active Ads</div>
+                <div class="i">Complete Budget</div>
+                <div class="i">Flag Count</div>
+                <div class="i">Action</div>
+            </div>
+            <div class="recta1">
+                {% for sponsor in sponsors %}
+                    <div class="i">{{sponsor.fullname}} </div>
+                    <div class="i">{{sponsor.username}}</div>
+                    <div class="i">{{sponsor.category}}</div>
+                    <div class="i">{{camps[sponsor.id]}}</div>
+                    <div class="i">{{active[sponsor.id]}}</div>
+                    <div class="i">₹{{budget[sponsor.id]}}</div>
+                    <div class="i">{{sponsor.flagCount}}</div>
+                    <div class="i">
+                        <form method="POST">
+                            <input type="hidden" name="sponsorID" value="{{sponsor.id}}">
+                            {% if sponsor.flag==True %}
+                                <button type="submit" class="flag" name="unflag" value="unflag">Unflag</button>
+                            {% elif sponsor.flag==False %}
+                                <button type="submit" class="flag" name="flag" value="flag">Flag</button>
+                            {% endif %}
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+            <span class="title1">Campaign</span>
+            <div class="line1"></div>
+            <div class="rectb">
+                <div class="i">Name</div>
+                <div class="i">Sponsor</div>
+                <div class="i">Budget</div>
+                <div class="i">Start Date</div>
+                <div class="i">Number of Ads</div>
+                <div class="i">Proprosals</div>
+                <div class="i">Accepted requests</div>
+                <div class="i">Progress</div>
+                <div class="i">Visibility</div>
+                <div class="i">Flag Count</div>
+                <div class="i">Action</div>
+            </div>
+            <div class="rectb1">
+                {% for product in products %}
+                    <div class="i">{{product.name}} </div>
+                    <div class="i">{{sponsor[product.id]}}</div>
+                    <div class="i">₹{{product.price}}</div>
+                    <div class="i">{{product.start}}</div>
+                    <div class="i">{{product.Ads}}</div>
+                    <div class="i">{{ad[product.id]}}</div>
+                    <div class="i">{{accepted[product.id]}}</div>
+                    <div class="i">{{progress[product.id]}}%</div>
+                    <div class="i">{{product.visibility}}</div>
+                    <div class="i">{{product.flagCount}}</div>
+                    <div class="i">
+                        <form method="POST">
+                            <input type="hidden" name="productID" value="{{product.id}}">
+                            {% if product.flag==True %}
+                                <button type="submit" class="flag" name="unflag" value="unflag">Unflag</button>
+                            {% elif product.flag==False %}
+                                <button type="submit" class="flag" name="flag" value="flag">Flag</button>
+                            {% endif %}
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
