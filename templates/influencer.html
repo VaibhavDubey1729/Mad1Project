@@ -251,13 +251,13 @@
         {% endif %}
         <div class="container">
             <div class="col">
-                <a href="">Profile</a>
+                <a href="{{url_for('dashboard', username=user.username)}}">Profile</a>
             </div>
             <div class="col">
                 <a href="{{url_for('findInflu')}}">Find</a>
             </div>
             <div class="col">
-                Stats
+                <a href="{{url_for('InfluStats', username=user.username)}}">Stats</a>
             </div>
             <div class="col">
                 <a href="{{ url_for('logout') }}">Logout</a>

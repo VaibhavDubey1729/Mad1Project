@@ -57,6 +57,7 @@
             margin: 5px;
             border: 3px solid rgb(0, 0, 0);
             border-radius: 50px;
+            box-shadow: 4px 4px 5px rgb(213, 31, 31);
         }
         .pfp{
             overflow: hidden;
@@ -98,16 +99,23 @@
         a:link, a:visited {
             color: inherit;
         }
-        .assigned, .request {
-            display: inline-block;
+        .main{
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        .request {
+            display: block;
             margin: 20px;
             width: 30%;
             height: 300px;
-            border: 2px solid rgb(0, 0, 0);
+            border: 4px solid rgb(0, 0, 0);
             border-radius: 10px;
-            overflow: scroll;
+            box-shadow: 4px 3px 4px black;
+            box-sizing: border-box;
         }
-        .assigned h4, .request h4{
+        .request h4{
             display: flex;
             justify-content: center;
             font-family: Verdana;
@@ -214,7 +222,7 @@
                 <a href="{{url_for('findspo')}}">Find</a>
             </div>
             <div class="col">
-                Stats
+                <a href="{{url_for('spoStats',username=username)}}">Stats</a>
             </div>
             <div class="col">
                 <a href="{{ url_for('logout') }}">Logout</a>
@@ -223,7 +231,7 @@
     </div>
     <div class="top-container">
         <div class="pfp">
-            <img src="/static/pfp.jpg" width="100px" height="100px"> 
+            <img src="/static/pfp.png" width="100px" height="100px"> 
         </div>
         <div class="info">
             <div class="usr">
@@ -238,16 +246,50 @@
             </div>
         </div>
     </div>
-    <div class="request">
-        <h4>Active Campaigns</h4>
-        <div class="rect">
-            <div class="iname"><b>Product | Budget | No. of Ads | Progress</b></div>
+    <div class="main">
+        <div class="request">
+            <h4>Active Campaigns</h4>
+            <div class="rect">
+                <div class="iname"><b>Product | Budget | No. of Ads | Progress</b></div>
+            </div>
+            {% for ad in products %}
+                {% if Status.get(ad.id)=='Accepted' %}
+                    <div class="rect">
+                        <div class="i">
+                                <div class="iname">{{ad.name}} | {{budget.get(ad.id)}} Rs | {{ad.Ads}} | {{progress.get(ad.id)}}%</div>
+                                <button type="button" data-modal="modal-{{ ad.id }}" class="button view">View</button>
+                                <!--Modal Class-->
+                                <div id="modal-{{ ad.id }}" class="modal">
+                                    <div class="modal-header">
+                                        <span class="close" onclick="close('{{ ad.id }}')">&times;</span>
+                                        <p> {{ad.name}} </p>
+                                    </div>
+                                    <div class="modal-content">
+                                        <div class="txt">
+                                            <p><h2>Product:<i> {{ad.name}} </i></h2></p>
+                                            <p><h3>Budget: <i>{{budget.get(ad.id)}} </i></p>
+                                            <p>Description: <i>{{ad.description}} </i></p>
+                                            <p>Starting Date: <i>{{ad.start}} </i></p>
+                                            <p>Ending Date: <i>{{ad.end}} </i></h3></p>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
         </div>
-        {% for ad in products %}
-            {% if Status.get(ad.id)=='Accepted' %}
-                <div class="rect">
-                    <div class="i">
-                            <div class="iname">{{ad.name}} | {{ad.price}} Rs | {{ad.Ads}} | {{progress.get(ad.id)}}%</div>
+    
+        <div class="request">
+            <h4>New Requests</h4>
+            <div class="rect">
+                <div class="iname"><b>Product | Budget | No. of Ads</b></div>
+            </div>
+            {% for ad in products %}
+                {% if Status.get(ad.id)=='Requested' %}
+                    <div class="rect">
+                        <div class="i">
+                            <div class="iname">{{ad.name}} | {{ad.price}} Rs</div>
                             <button type="button" data-modal="modal-{{ ad.id }}" class="button view">View</button>
                             <!--Modal Class-->
                             <div id="modal-{{ ad.id }}" class="modal">
@@ -265,92 +307,97 @@
                                     </div>
                                 </div>
                             </div>
+                            <form method="POST" action="{{ url_for('sponsor', username=username) }}">
+                                <input type="hidden" name="adID" value="{{ ad.id }}">
+                                {% if Status.get(ad.id) == 'Requested' %}
+                                    <button type="submit" name="status" value="Accepted" class="button accept">Accept</button>
+                                    <button type="submit" name="status" value="Rejected" class="button reject">Reject</button>
+                                {% endif %}
+                            </form>
+                        </div>
                     </div>
-                </div>
-            {% endif %}
-        {% endfor %}
-    </div>
-
-    <div class="assigned">
-        <h4>New Requests</h4>
-        <div class="rect">
-            <div class="iname"><b>Product | Budget | No. of Ads</b></div>
+                {% endif %}
+            {% endfor %}
         </div>
-        {% for ad in products %}
-            {% if Status.get(ad.id)=='Requested' %}
-                <div class="rect">
-                    <div class="i">
-                        <div class="iname">{{ad.name}} | {{ad.price}} Rs</div>
-                        <button type="button" data-modal="modal-{{ ad.id }}" class="button view">View</button>
-                        <!--Modal Class-->
-                        <div id="modal-{{ ad.id }}" class="modal">
-                            <div class="modal-header">
-                                <span class="close" onclick="close('{{ ad.id }}')">&times;</span>
-                                <p> {{ad.name}} </p>
-                            </div>
-                            <div class="modal-content">
-                                <div class="txt">
-                                    <p><h2>Product:<i> {{ad.name}} </i></h2></p>
-                                    <p><h3>Budget: <i>{{ad.price}} </i></p>
-                                    <p>Description: <i>{{ad.description}} </i></p>
-                                    <p>Starting Date: <i>{{ad.start}} </i></p>
-                                    <p>Ending Date: <i>{{ad.end}} </i></h3></p>
+    
+        <div class="request">
+            <h4>Completed Requests</h4>
+            <div class="rect">
+                <div class="iname"><b>Product | Budget | No. of Ads</b></div>
+            </div>
+            {% for ad in products %}
+                {% if Status.get(ad.id)=='Completed' %}
+                    <div class="rect">
+                        <div class="i">
+                            <div class="iname">{{ad.name}} | {{ad.price}} Rs</div>
+                            <button type="button" data-modal="modal-{{ ad.id }}" class="button view">View</button>
+                            <!--Modal Class-->
+                            <div id="modal-{{ ad.id }}" class="modal">
+                                <div class="modal-header">
+                                    <span class="close" onclick="close('{{ ad.id }}')">&times;</span>
+                                    <p> {{ad.name}} </p>
+                                </div>
+                                <div class="modal-content">
+                                    <div class="txt">
+                                        <p><h2>Product:<i> {{ad.name}} </i></h2></p>
+                                        <p><h3>Budget: <i>{{ad.price}} </i></p>
+                                        <p>Description: <i>{{ad.description}} </i></p>
+                                        <p>Starting Date: <i>{{ad.start}} </i></p>
+                                        <p>Ending Date: <i>{{ad.end}} </i></h3></p>
+                                    </div>
                                 </div>
                             </div>
+                            <form method="POST" action="{{ url_for('sponsor', username=username) }}">
+                                <input type="hidden" name="adID" value="{{ ad.id }}">
+                                {% if Status.get(ad.id) == 'Requested' %}
+                                    <button type="submit" name="status" value="Accepted" class="button accept">Accept</button>
+                                    <button type="submit" name="status" value="Rejected" class="button reject">Reject</button>
+                                {% endif %}
+                            </form>
                         </div>
-                        <form method="POST" action="{{ url_for('sponsor', username=username) }}">
-                            <input type="hidden" name="adID" value="{{ ad.id }}">
-                            {% if Status.get(ad.id) == 'Requested' %}
-                                <button type="submit" name="status" value="Accepted" class="button accept">Accept</button>
-                                <button type="submit" name="status" value="Rejected" class="button reject">Reject</button>
-                            {% endif %}
-                        </form>
                     </div>
-                </div>
-            {% endif %}
-        {% endfor %}
-    </div>
-
-    <div class="assigned">
-        <h4>Completed Requests</h4>
-        <div class="rect">
-            <div class="iname"><b>Product | Budget | No. of Ads</b></div>
+                {% endif %}
+            {% endfor %}
         </div>
-        {% for ad in products %}
-            {% if Status.get(ad.id)=='Requested' %}
-                <div class="rect">
-                    <div class="i">
-                        <div class="iname">{{ad.name}} | {{ad.price}} Rs</div>
-                        <button type="button" data-modal="modal-{{ ad.id }}" class="button view">View</button>
-                        <!--Modal Class-->
-                        <div id="modal-{{ ad.id }}" class="modal">
-                            <div class="modal-header">
-                                <span class="close" onclick="close('{{ ad.id }}')">&times;</span>
-                                <p> {{ad.name}} </p>
-                            </div>
-                            <div class="modal-content">
-                                <div class="txt">
-                                    <p><h2>Product:<i> {{ad.name}} </i></h2></p>
-                                    <p><h3>Budget: <i>{{ad.price}} </i></p>
-                                    <p>Description: <i>{{ad.description}} </i></p>
-                                    <p>Starting Date: <i>{{ad.start}} </i></p>
-                                    <p>Ending Date: <i>{{ad.end}} </i></h3></p>
+    
+        <div class="request">
+            <h4>Negotiations</h4>
+            <div class="rect">
+                <div class="iname"><b>Product | No. of Ads | Old Budget | New Budget</b></div>
+            </div>
+            {% for ad in products %}
+                {% if Status.get(ad.id)=='Negotiation' %}
+                    <div class="rect">
+                        <div class="i">
+                            <div class="iname">{{ad.name}} |{{ad.Ads}} | {{ad.price}} Rs | {{budget.get(ad.id)}} Rs</div>
+                            <button type="button" data-modal="modal-{{ ad.id }}" class="button view">View</button>
+                            <!--Modal Class-->
+                            <div id="modal-{{ ad.id }}" class="modal">
+                                <div class="modal-header">
+                                    <span class="close" onclick="close('{{ ad.id }}')">&times;</span>
+                                    <p> {{ad.name}} </p>
+                                </div>
+                                <div class="modal-content">
+                                    <div class="txt">
+                                        <p><h2>Product:<i> {{ad.name}} </i></h2></p>
+                                        <p><h3>No. of Ads: <i>{{ad.Ads}} </i></p>
+                                        <p><h3>Old Budget: <i>{{ad.price}} </i></p>
+                                        <p><h3>New Budget: <i>{{budget.get(ad.id)}} </i></p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <form method="POST" action="{{ url_for('sponsor', username=username) }}">
-                            <input type="hidden" name="adID" value="{{ ad.id }}">
-                            {% if Status.get(ad.id) == 'Requested' %}
+                            <form method="POST" action="{{ url_for('sponsor', username=username) }}">
+                                <input type="hidden" name="adID" value="{{ ad.id }}">
                                 <button type="submit" name="status" value="Accepted" class="button accept">Accept</button>
                                 <button type="submit" name="status" value="Rejected" class="button reject">Reject</button>
-                            {% endif %}
-                        </form>
+                                <button type="submit" name="status" value="Resend" class="button reject">Re-Send</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            {% endif %}
-        {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </div>    
     </div>
-
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {

@@ -123,13 +123,13 @@
             display: none; 
             position: fixed;
             z-index:1; 
-            padding-top: 50px; 
+            
             left: 0;
             top: 0;
             width: 100%; 
             height: 100%;
-            overflow: auto; 
-            background-color: rgba(55, 55, 55, 0.445);
+            overflow: scroll; 
+            background-color: rgba(255, 255, 255, 0);
         }
         .modal-header,
         .modal-footer{
@@ -227,7 +227,7 @@
                 <a href="{{url_for('findspo')}}">Find</a>
             </div>
             <div class="col">
-                Stats
+                <a href="{{url_for('spoStats',username=username)}}">Stats</a>
             </div>
             <div class="col">
                 <a href="{{ url_for('logout') }}">Logout</a>
@@ -242,6 +242,7 @@
                         <p class="name"><b>Product:</b> {{ad.name}} </p>
                         <p class="price"><b>Budget:</b> {{ad.price}} </p>
                         <p class="start"><b>Starts:</b> {{ad.start}} </p>
+                        <p class="start"><b>Category:</b> {{ad.category}} </p>
                         <p class="description"><b>Description:</b> {{ad.description}} </p>
                     </div>
                 </a>
@@ -276,10 +277,27 @@
                     <input type="integer" id="Ads" name="Ads">
                     <label for="visibility">Ad Visibility</label>
                     <select name="visibility">
-                        <option value="" dis selected>Select Visibility</option>
+                        <option value="" disabled selected>Select Visibility</option>
                         <option name="name" value="Public">Public</option>
                         <option name="name" value="Private">Private</option>
                     </select>
+                    <label for="category">Category</label>
+                        <select name="category" id="category">
+                            <option value="" disabled selected>Select Category</option>
+                            <option value="technology">Technology</option>
+                            <option value="Foods">Foods</option>
+                            <option value="fashion">Fashion</option>
+                            <option value="fitness">Fitness</option>
+                            <option value="travel">Travel</option>
+                            <option value="cooking">Cooking</option>
+                            <option value="makeup">Makeup</option>
+                            <option value="tutorials">Tutorials</option>
+                            <option value="gaming">Gaming</option>
+                            <option value="vlogs">Vlogging</option>
+                            <option value="others">Others</option>
+                        </select>
+                        <label for="niche">Description</label>
+                        <input type="text" name="niche" placeholder="Art (more specific Category)">
                 </div>
             </div>
             <div class="modal-footer">

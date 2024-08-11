@@ -34,6 +34,8 @@ class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), nullable=False)
     description = db.Column(db.Text, nullable=False)
+    category = db.Column(db.String(100), nullable=True)
+    niche = db.Column(db.String(100), nullable=True)
     price = db.Column(db.Integer, nullable=False)
     start = db.Column(db.Date, nullable=False)
     end = db.Column(db.Date, nullable=False)
@@ -49,9 +51,9 @@ class UserProduct(db.Model):
     __tablename__ = 'userproduct'
     productID = db.Column(db.Integer, db.ForeignKey('Product.id'), primary_key=True)
     userID = db.Column(db.Integer, db.ForeignKey('User.id'), primary_key=True)
-    CompletedAd=db.Column(db.Integer,nullable=True)
     progress=db.Column(db.Integer,nullable=True, default=0)
     status = db.Column(db.String(20), default='Pending')  # Status: Pending, Accepted, Rejected, Waiting, Completed
+    budget=db.Column(db.Integer, nullable=True)
     flag=db.Column(db.Boolean, default=False)
     negotiation=db.Column(db.String, nullable=True)
     

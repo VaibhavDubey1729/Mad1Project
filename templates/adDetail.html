@@ -70,9 +70,10 @@
             margin: 30px;
             width: auto;
             height: 300px;
-            border: 2px solid rgb(0, 0, 0);
+            border: 4px solid rgb(0, 0, 0);
             border-radius: 10px;
-            overflow: scroll;
+            box-shadow: 4px 3px 4px black;
+            
         }
         .assigned h4{
             display: flex;
@@ -81,7 +82,7 @@
         }
         .rect{
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(6, 1fr);
             flex-direction: row;
             border: 1px solid rgb(0, 255, 34);
             padding: 10px;
@@ -126,13 +127,14 @@
             height:auto;
             width: 25%;
             text-align: justify;
-            background-color: rgba(132, 134, 225, 0.189);
+            background-color: rgb(162, 34, 226);
             border-radius: 50px;
             border-color: black;
             border-style:solid ;
             border-width: 5px; 
             padding-left: 20px;
             padding-right: 20px;
+            box-shadow: 3px 4px 5px rgb(5, 5, 73);
         }
         .name{
             font-size: 25px;
@@ -145,29 +147,80 @@
             font-family: sans-serif;
             font-style: italic;
         }
-        
-        .box{
-            display: fixed;
-            padding-left: 50%;
-            justify-content: center;
-            align-items: center;
-            top: 60%;
+        .main{
+            display: flex;
+            justify-content:start;
+            align-items: flex-start;
+        }
+        .box {
+            display: flex;
+            justify-content: start;
+            align-items: start;
+            padding: 20px;
+            margin: 20px;
             font-family: Segoe UI;
             font-weight: bold;
             font-size: 25px;
+            background-color: blueviolet;
+            border-radius: 20px;
+            box-shadow: 3px 4px 5px black;
+            border: 5px solid black;
+            width: 25%;
+            flex-direction: column;
+        }
+        .box1 {
+            display: flex;
+            align-items: center;
+            border: 3px solid black;
+            padding: 5px;
+            font-size: 20px;
+            border-radius: 20px;
+            background-color: red;
+            color: white;
+            font-family: monospace;
         }
         .btn{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px;
             background-color: rgb(255, 255, 255);
             color: rgb(0, 0, 0);
-            font-size: 60px;
-            width: 100px;
-            height: 100px;
+            font-size: 30px;
+            font-weight: bolder;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            border-width: 3px ;
+            border: 3px solid black;
+            transition: transform 0.2s;
+        }
+        .btn:hover{
+            cursor: pointer;
+            transform: scale(1.1);
+            color: red;
         }
         .box button:hover{
-            background-color: black;
-            color: white;
+            cursor: pointer;
+            background-color: white;
+            border-color: white;
+            color: rgb(255, 0, 0);
+        }
+        .stat{
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            margin: 20px;
+            width: 100%;
+            height: 100%;
+            border: 4px solid black;
+            border-radius: 20px;
+            box-shadow: 3px 4px 5px black;
+        }
+        .stat img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: auto;
         }
         .modal {
             display: none; 
@@ -232,8 +285,7 @@
             margin-bottom: 5px;
         }
         form button{
-            width: 40%;
-            padding: 5px;
+            padding: 10px;
             font-family:monospace;
             border-radius: 30px;
             background-color: black;
@@ -259,6 +311,19 @@
             font-size: 20px;
             font-family: Verdana;
         }
+        input{
+            font-size: 15px;
+            width: 100px;
+            font-family: cursive;
+            font-style: italic;
+            border: 2px solid rgb(99, 14, 152);
+            border-radius: 10px;
+            padding-left: 20px;
+            padding: 5px;
+        }
+        label{
+            font-size: 20px;
+        }
     </style>
 </head>
 <body>
@@ -275,7 +340,7 @@
                 <a href="{{url_for('findspo')}}">Find</a>
             </div>
             <div class="col">
-                Stats
+                <a href="{{url_for('spoStats',username=username)}}">Stats</a>
             </div>
             <div class="col">
                 <a href="{{ url_for('logout') }}">Logout</a>
@@ -299,6 +364,7 @@
                 <div class="rect">
                     <div class="iname"><b>Name</b></div>
                     <div class="ifollow"><b>Username</b></div>
+                    <div class="ifollow"><b>Budget</b></div>
                     <div class="ifollow"><b>Status</b></div>
                     <div class="ifollow"><b>Progress</b></div>
                     <div class="ifollow"><b>Action</b></div>
@@ -307,6 +373,7 @@
                     <div class="rect">
                         <div class="iname-a"><div class="iname">{{i.fullname}}</div></div>
                         <div class="ifollow-a"><div class="ifollow">{{i.username}}</div></div>
+                        <div class="ifollow-a"><div class="ifollow">{{budget[i.id]}}Rs</div></div>
                         <div class="ifollow-a"><div class="ifollow">{{status[i.id]}}</div></div>
                         <div class="ifollow-a"><div class="ifollow">{{progress[i.id]}}%</div></div>
                         <form method="POST">
@@ -318,20 +385,27 @@
             </div>
         </div>
     </div>
-
-    <form method="POST">
-        <input type="hidden" name="adID" value="{{ ad.id }}">
-        <button type="submit" name="deleteAD" value="Delete" class="button Delete">Delete current Campaign</button>
-    </form>
-    <form method="POST">
-        <button type="button" class="button Delete"> <a href="{{url_for('editAd',adID=ad.id)}}"> Edit Campaign</a></button>
-    </form>
-    <div class="box">
-        <p>Create ad request</p>
-        <button id="btn" class="btn">
-            <i class="bi bi-plus"></i>
-        </button>
+    <div class="main">
+        <div class="box">
+            <div class="box1">
+                <p>Create ad request</p>
+                <button id="btn" class="btn">
+                    <i class="bi bi-plus"></i>
+                </button>
+            </div>
+            <form method="POST">
+                <button type="button" class="button Delete"> 
+                    <a href="{{url_for('editAd',adID=ad.id)}}"> Edit</a> 
+                </button>
+                <input type="hidden" name="adID" value="{{ ad.id }}">
+                <button type="submit" name="deleteAD" value="Delete" class="button Delete">Delete</button>
+            </form>
+        </div>
+        <div class="stat">
+            <img src="{{plot}}">
+        </div>
     </div>
+
     <div id="modal" class="modal">
         <form method="POST">
             <div class="modal-header">
@@ -342,7 +416,8 @@
                 <div class="txt">
                     <p class="name"><b>Product:</b> {{ad.name}} </p>
                     <p class="description"><b>Description:</b> {{ad.description}} </p>
-                    <p class="price"><b>Budget:</b> {{ad.price}} </p>
+                    <label for="Price" ><b>Budget for Particular Request:</b></label>
+                    <input type="text" name="Budget" value="{{ad.price}}">
                     <p class="start"><b>Starts:</b> {{ad.start}} </p>
                     <p class="end"><b>Ends:</b> {{ad.start}} </p>
                     <p class="end"><b>Number of Ads:</b> {{ad.Ads}} </p>

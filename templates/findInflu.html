@@ -102,6 +102,17 @@
             border-color: rgb(100, 67, 235);
             width: 500px;
         }
+        .search select{
+            width: 170px;
+            margin-right: 20px;
+            font-size: 15px;
+            font-family: Verdana;
+            border: 4px solid red;
+            color: white;
+            background-color: black;
+            border-radius: 20px;
+            padding: 10px;
+        }
         .search button{
             margin-left: 20px;
             font-size: 20px;
@@ -247,7 +258,7 @@
                 <a href="{{url_for('findInflu')}}">Find</a>
             </div>
             <div class="col">
-                Stats
+                <a href="{{url_for('InfluStats', username=username)}}">Stats</a>
             </div>
             <div class="col">
                 <a href="{{ url_for('logout') }}">Logout</a>
@@ -257,12 +268,28 @@
             </div>
         </div>
     </div>
+    
     <div class="search" >
         <form method="GET" action="{{url_for('search')}}">
+            <select name="category" id="category">
+                <option value="" disabled selected>Select Category</option>
+                <option value="technology">Technology</option>
+                <option value="Foods">Foods</option>
+                <option value="fashion">Fashion</option>
+                <option value="fitness">Fitness</option>
+                <option value="travel">Travel</option>
+                <option value="cooking">Cooking</option>
+                <option value="makeup">Makeup</option>
+                <option value="tutorials">Tutorials</option>
+                <option value="gaming">Gaming</option>
+                <option value="vlogs">Vlogging</option>
+                <option value="others">Others</option>
+            </select>
             <input type="text" name="search" placeholder="search">
             <button type="submit"><i class="fas fa-search"></i></button>
         </form>
     </div>
+
         {% for msg in get_flashed_messages() %}
             {% if msg %}
             <div class="flash">
@@ -280,7 +307,6 @@
                         <div class="buttons">
                             {% set status = Status.get(ad.id, ' ') %}
                                 {% if status == 'Pending' %}
-
                                         <button type="button" data-modal="modal-{{ ad.id }}" class="button view">View</button>
                                         <input type="hidden" name="adID" value="{{ ad.id }}">
                                         <button type="submit" name="status" value="Accepted" class="button accept">Accept</button>

@@ -91,9 +91,20 @@
             border-color: rgb(100, 67, 235);
             width: 500px;
         }
+        .search select{
+            width: 170px;
+            font-family: Verdana;
+            font-size: 20px;
+            margin-right: 20px;
+            border: 4px solid red;
+            color: white;
+            background-color: black;
+            border-radius: 20px;
+            padding: 10px;
+        }
         .search button{
             margin-left: 20px;
-            font-size: 20px;
+            font-size: 15px;
             width: 55px;
             height: 55px;
             border-radius: 50%;
@@ -268,7 +279,7 @@
                 <a href="{{url_for('findspo')}}">Find</a>
             </div>
             <div class="col">
-                Stats
+                <a href="{{url_for('spoStats',username=username)}}">Stats</a>
             </div>
             <div class="col">
                 <a href="{{ url_for('logout') }}">Logout</a>
@@ -278,6 +289,20 @@
     
     <div class="search" >
         <form method="GET" action="{{url_for('searchSpo')}}">
+            <select name="category" id="category">
+                <option value="" disabled selected>Select Category</option>
+                <option value="technology">Technology</option>
+                <option value="Foods">Foods</option>
+                <option value="fashion">Fashion</option>
+                <option value="fitness">Fitness</option>
+                <option value="travel">Travel</option>
+                <option value="cooking">Cooking</option>
+                <option value="makeup">Makeup</option>
+                <option value="tutorials">Tutorials</option>
+                <option value="gaming">Gaming</option>
+                <option value="vlogs">Vlogging</option>
+                <option value="others">Others</option>
+            </select>
             <input type="text" name="search" placeholder="search">
             <button type="submit"><i class="fas fa-search"></i></button>
         </form>
@@ -295,7 +320,7 @@
         {% if ad.visibility=='Public' or ad.sponsor_id==sponsorID%}
             <div class="rect">
                 <div class="i">
-                    <div class="iname"><b>Product</b> <i>{{ad.name}}</i> |<b> Budget </b><i>{{ad.price}} Rs</i> | <b>Sponsor</b> <i>{{ad.Sponsor.fullname}} | <b>Starts</b> <i> {{ad.start}} </i></div>
+                    <div class="iname"><b>Product</b> <i>{{ad.name}}</i> |<b> Budget </b><i>{{ad.price}} Rs</i> | <b>Category</b> <i> {{ad.category}} | <b>Niche</b> <i> {{ad.niche}} </i></div>
                     <div class="buttons">
                         <button type="button" data-modal="modal-ad-{{ ad.id }}" class="button view">View</button>
                     </div>
@@ -310,6 +335,8 @@
                                 <p><h2>Product:<i> {{ad.name}} </i></h2></p>
                                 <p><h3>Budget: <i>{{ad.price}} </i></p>
                                 <p><h3>Sponsor: <i>{{ad.Sponsor.fullname}} </i></p>
+                                <p>Category: <i>{{ad.category}} </i></p>
+                                <p>Niche: <i>{{ad.niche}} </i></p>
                                 <p>Description: <i>{{ad.description}} </i></p>
                                 <p>Starting Date: <i>{{ad.start}} </i></p>
                                 <p>Ending Date: <i>{{ad.end}} </i></h3></p>

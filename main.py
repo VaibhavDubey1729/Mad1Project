@@ -12,7 +12,9 @@ with app.app_context():
 
 from application.Controls import*
 from application.UserController import*
-
+from application.AdminController import*
+from application.SponsorController import*
+from application.ProductContoller import*
 
 if __name__ == "__main__":
     app.run(debug=True)
