@@ -10,7 +10,7 @@ import os
 @app.route("/")
 def main():
     return render_template("index.html")
-    
+
 @app.route('/logout')
 def logout():
     session.clear()  

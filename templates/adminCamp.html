@@ -163,7 +163,7 @@
         .rect, .rect1{
             display: grid;
             padding: 10px;
-            grid-template-columns: repeat(10,1fr);
+            grid-template-columns: repeat(11,1fr);
             box-sizing: border-box;
             width: 100%;
             border: 3px solid black;
@@ -253,6 +253,7 @@
                 <div class="i">Progress</div>
                 <div class="i">Visibility</div>
                 <div class="i">Flag</div>
+                <div class="i">Action</div>
             </div>
             <div class="rect1">
                 {% for product in products %}
@@ -273,6 +274,13 @@
                             {% elif product.flag==False %}
                                 <button type="submit" class="flag" name="flag" value="flag">Flag</button>
                             {% endif %}
+                        </form>
+                    </div>
+                    <div class="i">
+                        <form method="POST">
+                            <input type="hidden" name="productID" value="{{product.id}}">
+                            <button type="submit" class="flag" name="delete" value="delete"><i class="bi bi-trash"></i>
+                            </button>
                         </form>
                     </div>
                 {% endfor %}

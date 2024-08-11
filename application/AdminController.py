@@ -58,6 +58,9 @@ def adminInflu():
                 user.flag=True
             elif request.form.get('unflag'):
                 user.flag=False
+            elif request.form.get('delete'):
+                db.session.delete(user)
+                
             db.session.commit()
         
         return redirect(url_for('adminInflu'))
@@ -86,6 +89,8 @@ def adminSpo():
                 sponsor.flag=True
             elif request.form.get('unflag'):
                 sponsor.flag=False
+            elif request.form.get('delete'):
+                db.session.delete(sponsor)
             db.session.commit()
         
         return redirect(url_for('adminSpo'))
@@ -115,6 +120,8 @@ def adminCamp():
                 product.flag=True
             elif request.form.get('unflag'):
                 product.flag=False
+            elif request.form.get('delete'):
+                db.session.delete(product)
             db.session.commit()
         
         return redirect(url_for('adminCamp'))
@@ -174,6 +181,8 @@ def adminReport():
             elif request.form.get('unflag'):
                 user.flagCount = 0  # Resetting the Flag Count as soon as the user gets unflagged
                 user.flag = False
+            elif request.form.get('delete'):
+                db.session.delete(user)
         productID = request.form.get('productID')
         if productID:
             product = Product.query.get(productID)
@@ -181,6 +190,8 @@ def adminReport():
                 product.flag = True
             elif request.form.get('unflag'):
                 product.flag = False
+            elif request.form.get('delete'):
+                db.session.delete(product)
         sponsorID = request.form.get('sponsorID')
         if sponsorID:
             sponsor = Sponsor.query.get(sponsorID)
@@ -188,6 +199,8 @@ def adminReport():
                 sponsor.flag = True
             elif request.form.get('unflag'):
                 sponsor.flag = False
+            elif request.form.get('delete'):
+                db.session.delete(sponsor)
         db.session.commit()
         
         return redirect(url_for('adminReport'))

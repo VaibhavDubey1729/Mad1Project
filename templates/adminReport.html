@@ -167,7 +167,7 @@
         .rect, .rect1, .recta, .recta1, .rectb,.rectb1{
             display: grid;
             padding: 10px;
-            grid-template-columns: repeat(8,1fr);
+            grid-template-columns: repeat(9,1fr);
             box-sizing: border-box;
             width: 100%;
             border: 3px solid black;
@@ -179,11 +179,11 @@
             font-weight: bold;
         }
         .recta, .recta1{
-            grid-template-columns: repeat(8,1fr);
+            grid-template-columns: repeat(9,1fr);
         }
 
         .rectb, .rectb1{
-            grid-template-columns: repeat(11,1fr);
+            grid-template-columns: repeat(12,1fr);
         }
         .rect1{
             margin-top: 10px;
@@ -263,7 +263,8 @@
                 <div class="i">Active Ads</div>
                 <div class="i">Visibility</div>
                 <div class="i">Total Flags</div>
-                <div class="i">Actions</div>
+                <div class="i">Flag</div>
+                <div class="i">Action</div>
             </div>
             <div class="rect1">
                 {% for user in users %}
@@ -286,6 +287,13 @@
                             {% endif %}
                         </form>
                     </div>
+                    <div class="i">
+                        <form method="POST">
+                            <input type="hidden" name="userID" value="{{user.id}}">
+                            <button type="submit" class="flag" name="delete" value="delete"><i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+                    </div>
                 {% endfor %}
             </div>
             <span class="title1">Sponsors</span>
@@ -298,6 +306,7 @@
                 <div class="i">Active Ads</div>
                 <div class="i">Complete Budget</div>
                 <div class="i">Flag Count</div>
+                <div class="i">Flag</div>
                 <div class="i">Action</div>
             </div>
             <div class="recta1">
@@ -319,6 +328,13 @@
                             {% endif %}
                         </form>
                     </div>
+                    <div class="i">
+                        <form method="POST">
+                            <input type="hidden" name="sponsorID" value="{{sponsor.id}}">
+                            <button type="submit" class="flag" name="delete" value="delete"><i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+                    </div>
                 {% endfor %}
             </div>
             <span class="title1">Campaign</span>
@@ -334,6 +350,7 @@
                 <div class="i">Progress</div>
                 <div class="i">Visibility</div>
                 <div class="i">Flag Count</div>
+                <div class="i">Flag</div>
                 <div class="i">Action</div>
             </div>
             <div class="rectb1">
@@ -356,6 +373,13 @@
                             {% elif product.flag==False %}
                                 <button type="submit" class="flag" name="flag" value="flag">Flag</button>
                             {% endif %}
+                        </form>
+                    </div>
+                    <div class="i">
+                        <form method="POST">
+                            <input type="hidden" name="productID" value="{{product.id}}">
+                            <button type="submit" class="flag" name="delete" value="delete"><i class="bi bi-trash"></i>
+                            </button>
                         </form>
                     </div>
                 {% endfor %}

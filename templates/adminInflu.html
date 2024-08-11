@@ -163,7 +163,7 @@
         .rect, .rect1{
             display: grid;
             padding: 10px;
-            grid-template-columns: repeat(8,1fr);
+            grid-template-columns: repeat(9,1fr);
             box-sizing: border-box;
             width: 100%;
             border: 3px solid black;
@@ -250,7 +250,8 @@
                 <div class="i">Active Ads</div>
                 <div class="i">Visibility</div>
                 <div class="i">Total Flags</div>
-                <div class="i">Actions</div>
+                <div class="i">Flag</div>
+                <div class="i">Delete</div>
             </div>
             <div class="rect1">
                 {% for user in users %}
@@ -271,6 +272,13 @@
                                     <button type="submit" class="flag" name="flag" value="flag">Flag</button>
                                 {% endif %}
                             {% endif %}
+                        </form>
+                    </div>
+                    <div class="i">
+                        <form method="POST">
+                            <input type="hidden" name="userID" value="{{user.id}}">
+                            <button type="submit" class="flag" name="delete" value="delete"><i class="bi bi-trash"></i>
+                            </button>
                         </form>
                     </div>
                 {% endfor %}
