@@ -16,4 +16,4 @@ The Admin Access has been provided to the first Influencer by default
 Admin page consists of various statistics related to Influencers, Sponsors, Campaigns
 The Admin can Falg/ unflag the Influencers, Sponsors or Campaigns
 There is a dedicated Report page for the number of reports recieved for a particular  Influencer or Campaign
-Currently the Flag/unflag button is a dummy and has no relevance right now, however the admin may delete that particular Influencer/Ad/Sponsor
+Currently the Flag/unflag button is a dummy button, but although the admin has the ability to delete the Inappropriate Influencers/Sponsors/Campaigns

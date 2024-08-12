@@ -187,7 +187,8 @@ def findInflu():
                 if currentReq:
                     pass
                 else:
-                    userproduct=UserProduct(userID=userID, productID=adID, status='Requested')
+                    userproduct=UserProduct(userID=userID, productID=adID, status='Requested', budget=Product.query.get(adID).price)
+                    
                     db.session.add(userproduct)
                     db.session.commit()
                     
@@ -257,7 +258,7 @@ def dashboard(username):
                 adID = request.form.get('adID')
                 stat = request.form.get('status')
                 budget=request.form.get('Budget')
-                up=UserProduct.query.filter_by(productID=adID,userID=userID).first() 
+                up=UserProduct.query.filter_by(productID=adID,userID=userID).first()
                 if up:
                     if budget:
                         up.budget=budget
@@ -265,8 +266,8 @@ def dashboard(username):
                     else:
                         pd=Product.query.filter_by(id=adID).first()
                         up.budget=pd.price
-                    up.status=stat
-                db.session.commit()
+                        up.status=stat
+                    db.session.commit()
                                     
             usrprd=UserProduct.query.filter_by(userID=userID).all()
             prdID=[a.productID for a in usrprd]

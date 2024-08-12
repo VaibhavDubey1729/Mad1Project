@@ -125,9 +125,11 @@ def spoStats(username):
          #Campaign Budget vs Negotiated Budget
         pprice=[UserProduct.query.filter_by(productID=product.id).first().budget for product in products  if UserProduct.query.filter_by(productID=product.id).first()]
         nprice = [product.price for product in products if UserProduct.query.filter_by(productID=product.id).first()]
-        if any(nprice):
-            axs[2, 0].bar(upname, pprice, color="violet", width=0.1,label='Negotiated Budget')
-            axs[2, 0].bar(upname, nprice, color="red", width=0.1,label='Campaign Budget')
+        pprice_safe = [price if price is not None else 0 for price in pprice]
+        nprice_safe = [price if price is not None else 0 for price in nprice]
+        if len(upname) == len(pprice_safe) and len(upname) == len(nprice_safe):
+            axs[2, 0].bar(upname, pprice_safe, color="violet", width=0.1, label='Negotiated Budget')
+            axs[2, 0].bar(upname, nprice_safe, color="red", width=0.1, label='Campaign Budget')
             axs[2, 0].set_xlabel('Products')
             axs[2, 0].set_ylabel('No. of Ads')
             axs[2, 0].set_title('Original Budget vs Negotiated Budget',pad=30)
